@@ -19,22 +19,24 @@ require 'mechanize'
 def scraping_image(link)
   agent = Mechanize.new
   page = agent.get(link)
-  image_url = page.at('.product-default img').get_attribute('src')
-  return "https:#{image_url}"
-
-  # 価格を取得する場合
-    # price = page.at('.product-price span').inner_text
-  # return puts price
+  name = page.at('h1').inner_text
+  price = page.at('.product__price').inner_text
+  image_url = page.at('.MagicToolboxSlide img')[:src] if page.at('.MagicToolboxContainer img')
 end
 
-links = [] # 個別ページのリンクを保存する配列
+#①linksという配列の空枠を作る
+links = []
+#②Mechanizeクラスのインスタンスを生成する
 agent = Mechanize.new
-current_page = agent.get("https://www.bombshellsportswear.com/collections/new")
-elements = current_page.search('.product-info a')
+#③nuxの全体ページのURLを取得
+current_page = agent.get("https://nuxactive.com/collections/shop-all")
+#④全体ページからnuxの個別URLのタグを取得
+elements = current_page.search('.grid-product__content a')
+#⑤個別URLのタグからhref要素を取り出し、links配列に格納する
 elements.each do |ele|
   links << ele.get_attribute('href')
 end
 
 links.each do |link|
-  puts scraping_image("https://www.bombshellsportswear.com" + link)
+  puts scraping_image('https://nuxactive.com' + link)
 end
