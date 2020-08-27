@@ -21,6 +21,10 @@ def scraping_image(link)
   page = agent.get(link)
   image_url = page.at('.product-default img').get_attribute('src')
   return "https:#{image_url}"
+
+  # 価格を取得する場合
+    # price = page.at('.product-price span').inner_text
+  # return puts price
 end
 
 links = [] # 個別ページのリンクを保存する配列
