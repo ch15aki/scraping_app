@@ -22,3 +22,14 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+## products テーブル
+
+| column      | type    | option      |
+| ----------- | ------- | ----------- |
+| name        | string  | null: false |
+| category    | integer | null: false |
+| price       | integer | null: false |
+| image_url   | text    |             |
+| product_url | text    |             |
+
